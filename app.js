@@ -1,29 +1,37 @@
-const bodyParser =  require('body-parser');
+// Third party modules
+const bodyParser = require('body-parser');
 const express = require('express');
-const sequelize = require('./database/models/index').sequelize
+
+// my imports
+const { handleError } = require('./utils/error');
 
 const app = express();
 
 const env = process.env.NODE_ENV || 'development';
-if(env === 'development'){
-    require('dotenv').config();
+if (env === 'development') {
+  // eslint-disable-next-line global-require
+  require('dotenv').config();
 }
 
-const PORT = process.env.PORT || 3000
- 
-sequelize.authenticate()
-    .then(() => {
-        console.log('Database connection successful');
-    })
-    .catch((err)=> {
-        console.log('Could not connect to database, ERROR::',err)
-    })
+app.use(bodyParser.json());
 
+app.use('/', (req, res) => {
+  res.send({
+    message: 'Welcome!'
+  });
+});
+// error handling middleware
+app.use((err, req, res, next) => {
+  handleError(res, err);
+});
 
-    
+// 404 middleware
+app.use('*', (req, res) => {
+  const url = req.originalUrl;
+  res.status(404).send({
+    status: 'error',
+    message: `Oops. ${req.method} ${url} not found on this website`
+  });
+});
 
-
-
-app.listen(PORT, () => {
-    console.log(`Server is listening at port ${PORT}`);
-})
+export default app;
