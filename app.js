@@ -4,6 +4,8 @@ const express = require('express');
 
 // my imports
 const { handleError } = require('./utils/error');
+// route imports
+const userRouter = require('./routes/user-routes');
 
 const app = express();
 
@@ -15,11 +17,14 @@ if (env === 'development') {
 
 app.use(bodyParser.json());
 
-app.use('/', (req, res) => {
+app.get('/', (req, res) => {
   res.send({
     message: 'Welcome!'
   });
 });
+
+app.use('/api/users', userRouter);
+
 // error handling middleware
 app.use((err, req, res, next) => {
   handleError(res, err);
