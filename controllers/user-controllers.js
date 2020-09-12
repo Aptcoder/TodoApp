@@ -41,7 +41,7 @@ const createUser = async (req, res, next) => {
     await user.save();
     const token = await generateToken(user);
     res.set('x-auth', token);
-    return responseHandler(res, 201, 'User created', { user: _.omit(user, ['password']) });
+    return responseHandler(res, 201, 'User created');
   } catch (err) {
     return next(err);
   }
@@ -73,4 +73,16 @@ const loginUser = async (req, res, next) => {
     return next(err);
   }
 };
-module.exports = { getAllUsers, createUser, loginUser };
+
+const getUser = async (req, res, next) => {
+  const { id: userId } = req.user;
+  try {
+    const user = await User.findOne({ where: { id: userId } });
+    return responseHandler(res, 200, 'User', { user });
+  } catch (err) {
+    return next(err);
+  }
+};
+module.exports = {
+  getAllUsers, createUser, loginUser, getUser
+};
