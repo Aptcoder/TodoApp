@@ -6,6 +6,7 @@ const express = require('express');
 const { handleError } = require('./utils/error');
 // route imports
 const userRouter = require('./routes/user-routes');
+const todoRouter = require('./routes/todo-routes');
 
 const app = express();
 
@@ -24,7 +25,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/users', userRouter);
-
+app.use('/api/user/todos', todoRouter);
 // error handling middleware
 app.use((err, req, res, next) => {
   handleError(res, err);
