@@ -1,3 +1,5 @@
+// const { listen } = require("../app");
+
 class ErrorHandler extends Error {
   constructor(statusCode, message) {
     super();
@@ -6,10 +8,16 @@ class ErrorHandler extends Error {
   }
 }
 
-const handleError = function (res, err) {
-  res.status(err.statusCode).send({
+const handleError = (res, err) => {
+  let statusCode = err.statusCode || 500;
+  const message = err.message || 'Something unexpected went wrong.';
+  if (err.sql) {
+    statusCode = 400;
+    // message = err.detail;
+  }
+  res.status(statusCode).send({
     status: 'error',
-    message: err.message
+    message
   });
 };
 
