@@ -6,6 +6,7 @@ const todoController = require('../controllers/todo-controllers');
 const auth = require('../middlewares/authentication/auth');
 
 router.get('/', auth, todoController.getAllUserTodos);
-// router.post('/', userValidation(), userController.createUser);
-// router.post('/auth', userValidation(), userController.loginUser);
+router.post('/', auth, todoController.createTodo);
+router.put('/:id', auth, todoController.editSingleTodo);
+router.get('/:id', auth, todoController.getSingleUserTodo);
 module.exports = router;
