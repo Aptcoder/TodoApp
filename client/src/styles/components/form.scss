@@ -1,0 +1,36 @@
+.form{
+    display: flex;
+    flex-direction: column;
+}
+
+.form__input, .form__input:active, .form__input:focus {
+    border: 0.1rem solid $light-blue;
+    padding: 0.2rem 0.4rem;
+    outline: none;
+}
+
+.form label {
+    font-size: 1.4rem;
+    margin: $xs-size 0;
+}
+.form label::after {
+    content: '*';
+    color: $pink;
+}
+.form .error {
+    font-size: 1.0rem;
+    margin: 0.2rem 0 ;
+    color: $pink;
+}
+
+.form__button, .form__button:focus {
+    background: $pink;
+    margin: $xs-size 0;
+    width: 35%;
+    color: white;
+    outline: none;
+}
+
+.form__button:hover {
+    background: darken($pink, 10%);
+}

@@ -1,0 +1,29 @@
+.card {
+    margin: auto;
+    margin-top: 25vh;
+    width: 40vw;
+    // height: 20vh;
+    padding: $m-size $s-size;
+    @include box-shadow;
+
+    
+}
+
+.card__title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: $xs-size;
+}
+
+
+@media (max-width: 768px ){
+    .card {
+        width: 75vw;
+    }
+}
+
+@media (max-width: 576px ){
+    .card {
+        width: 90vw;
+    }
+}
