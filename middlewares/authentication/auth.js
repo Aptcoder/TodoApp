@@ -28,7 +28,6 @@ module.exports = async (req, res, next) => {
     req.user = user;
     return next();
   } catch (e) {
-    console.log('error verifying token..', e);
     return next(e);
   }
 };

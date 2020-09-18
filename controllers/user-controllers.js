@@ -41,7 +41,7 @@ const createUser = async (req, res, next) => {
     await user.save();
     const token = await generateToken(user);
     res.set('x-auth', token);
-    return responseHandler(res, 201, 'User created');
+    return responseHandler(res, 201, 'User created', { user: _.omit(user, ['password']) });
   } catch (err) {
     return next(err);
   }
@@ -67,7 +67,7 @@ const loginUser = async (req, res, next) => {
     }
     const token = await generateToken(user);
     res.set('x-auth', token);
-    return responseHandler(res, 200, 'Login successful');
+    return responseHandler(res, 200, 'Login successful', { user: _.omit(user.toJSON(), ['password']) });
   } catch (err) {
     console.log('error', err);
     return next(err);
@@ -78,7 +78,7 @@ const getUser = async (req, res, next) => {
   const { id: userId } = req.user;
   try {
     const user = await User.findOne({ where: { id: userId } });
-    return responseHandler(res, 200, 'User', { user });
+    return responseHandler(res, 200, 'User', { user: _.omit(user.toJSON(), ['password']) });
   } catch (err) {
     return next(err);
   }

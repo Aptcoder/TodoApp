@@ -1,0 +1,26 @@
+.nav-bar {
+    display: flex;
+    justify-content: space-between;
+    padding: 2vh 5vw;
+    background-color: white;
+    border-bottom: 1px solid $light-blue;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    box-shadow: 0 1px 2px 4px lighten(#c5c5c5,20%)  ;
+}
+
+.nav__item-button {
+    color: white;
+    border: 1px solid $pink;
+    cursor: pointer;
+    background-color: $pink;
+    padding: 0.2rem 0.7rem;
+    letter-spacing: 0.07rem;
+}
+
+.nav__item-button:hover {
+    background-color: darken($pink, 10%);
+}

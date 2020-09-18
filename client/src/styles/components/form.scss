@@ -4,8 +4,9 @@
 }
 
 .form__input, .form__input:active, .form__input:focus {
+    font-size: $s-size;
     border: 0.1rem solid $light-blue;
-    padding: 0.2rem 0.4rem;
+    padding: 0.5rem 0.5rem;
     outline: none;
 }
 
@@ -13,7 +14,7 @@
     font-size: 1.4rem;
     margin: $xs-size 0;
 }
-.form label::after {
+.form label:not(.no)::after {
     content: '*';
     color: $pink;
 }
@@ -25,12 +26,28 @@
 
 .form__button, .form__button:focus {
     background: $pink;
-    margin: $xs-size 0;
-    width: 35%;
+    margin: $m-size 0;
+    width: 100%;
+    padding: 0.5rem 0;
     color: white;
     outline: none;
 }
 
 .form__button:hover {
     background: darken($pink, 10%);
+}
+
+.form__text-small {
+    font-size: $s-size;
+    text-align: center;
+}
+
+.name__div{
+
+}
+
+.tiny-info {
+    font-size: $xs-size;
+    font-style: italic;
+    color: #c5c5c5;
 }

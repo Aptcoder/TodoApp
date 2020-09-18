@@ -1,12 +1,10 @@
 .card {
     margin: auto;
-    margin-top: 25vh;
+    margin-top: 20vh;
     width: 40vw;
     // height: 20vh;
     padding: $m-size $s-size;
     @include box-shadow;
-
-    
 }
 
 .card__title {

@@ -15,7 +15,7 @@ const normalizePort = (val) => {
   return false;
 };
   // normalize and set the port
-const port = normalizePort(process.env.PORT || '3000');
+const port = normalizePort(process.env.PORT || '5000');
 
 sequelize.authenticate()
   .then(() => {
