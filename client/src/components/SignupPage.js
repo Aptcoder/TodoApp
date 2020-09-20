@@ -1,9 +1,15 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {connect} from 'react-redux'
 import AuthForm from './AuthForm';
 import {startRegister} from '../actions/auth'
 
 const SignupPage = (props) => {
+
+    useEffect(() => {
+        return () => {
+            console.log('Sign up unmounted now!')
+        }
+    })
     return (
         <div className='card'>
         <h2 className='card__title'>Sign up</h2>
@@ -14,14 +20,7 @@ const SignupPage = (props) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        startRegister: async (values) => {
-            try {
-                await dispatch(startRegister(values));
-            }
-            catch(msg){
-                return msg;
-            }
-        }
+        startRegister: async (values) => await dispatch(startRegister(values))
     }
 }
 

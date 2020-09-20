@@ -4,9 +4,18 @@ module.exports = (sequelize, DataTypes) => {
     title: DataTypes.STRING,
     description: DataTypes.STRING,
     userId: {
-      type:  DataTypes.INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: false
-    }
+    },
+    todoAt: {
+      type: DataTypes.DATE,
+      allowNull: false
+    },
+    isCompleted: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
+
   }, {});
   Todo.associate = function(models) {
     // associations can be defined here

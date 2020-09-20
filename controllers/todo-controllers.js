@@ -1,4 +1,4 @@
-const moment = require('moment');
+// const moment = require('moment');
 const { Todo } = require('../database/models');
 const { ErrorHandler } = require('../utils/error');
 const { responseHandler } = require('../utils/response');
@@ -11,7 +11,8 @@ const createTodo = async (req, res, next) => {
   if (!title) {
     return next(new ErrorHandler(400, 'Title is required'));
   }
-  if (!todoAt || !moment.isDate(todoAt)) {
+
+  if (!todoAt) {
     return next(new ErrorHandler(400, 'A valid todoAt date is required'));
   }
   try {
@@ -19,7 +20,7 @@ const createTodo = async (req, res, next) => {
       title,
       description,
       userId,
-      todoAt
+      todoAt: new Date(todoAt)
     });
     return responseHandler(res, 201, 'Todo created');
   } catch (err) {

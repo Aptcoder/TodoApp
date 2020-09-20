@@ -9,6 +9,7 @@ import AppRouter from '../src/routers/AppRouter';
 import * as serviceWorker from './serviceWorker';
 import configureStore from './store/config';
 import {getUserProfile} from './actions/auth'
+import {startSetTodos} from './actions/todos'
 import gif from './loading2.gif'
 const store = configureStore();
 const jsx = (
@@ -27,6 +28,15 @@ const authToken = localStorage.getItem('token');
       ReactDOM.render(<div className='loading-gif'><img alt='loading gif' src={gif}/></div>,document.getElementById('root'));
       store.dispatch(getUserProfile(authToken))
       .then(() => {
+        store.dispatch((startSetTodos(authToken)))
+        .then(() => {
+          renderApp();
+        })
+        .catch(() => {
+          ReactDOM.render(<div>Could not get todos</div>,document.getElementById('root'));
+        })
+      })
+      .catch(() => {
         renderApp()
       })
   }

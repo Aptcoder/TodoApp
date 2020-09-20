@@ -1,12 +1,18 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {connect} from 'react-redux'
 import AuthForm from './AuthForm';
 import {startLogin} from '../actions/auth'
 const LoginPage = (props) => {
+
+    useEffect(() => {
+        return () => {
+            console.log('Login unmounted now!')
+        }
+    })
     return (
         <div className='card'>
         <h2 className='card__title'>Welcome back</h2>
-        <AuthForm type={'login'} history={props.history} onSubmit={props.startLogin}/>
+        <AuthForm type={'login'} onSubmit={props.startLogin}/>
         </div>
         
     )
@@ -14,15 +20,8 @@ const LoginPage = (props) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        startLogin: async (values) => {
-            try {
-                await dispatch(startLogin(values));
-            }
-            catch(msg){
-                return msg;
-            }
-        }
-    }
+        startLogin: async (values) => await dispatch(startLogin(values))
+}
 }
 
 export default connect(null,mapDispatchToProps)(LoginPage);

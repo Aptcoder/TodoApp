@@ -4,15 +4,16 @@
     // height: auto;
     // max-height: 16rem;
     width: 80%;
-    margin: auto;
+    margin: $m-size auto;
     display: flex;
     flex-direction: column;
 }
 
-.todoListItem  p.date{
-    font-size: 1rem;
+.todoListItem  p.arrow{
+    font-size: 0.6rem;
     margin: 0;
-    margin-top: 0.6rem;
+    text-align:center;
+    margin-top: 0rem;
     color: lighten(black, 50%)
 }
 .todoListItem p.description {
@@ -41,24 +42,26 @@
 }
 
 
-.todoListItem__top .state,.todoListItem__top .action{
-    font-size: $s-size;
+.todoListItem__top .date,.todoListItem__top .action{
+    font-size: 1rem;
     margin-bottom: $xs-size;
     letter-spacing: 0.5px;
     color: lighten(black,50%)
 }
 
-.todoListItem__top .state {
-    color: $light-blue;
+.todoListItem__top .date {
+    // color: $light-blue;
 }
 
 .todoListItem__top .action {
+    font-size: $s-size;
     display: flex;
     justify-content: space-between;
-    width: 3rem;
+    width: auto;
 }
 .todoListItem__top .action svg {
     cursor: pointer;
+    margin-right: 0.6rem;
 }
 
 @media (min-width: 768px){

@@ -20,15 +20,16 @@ export const startLogin = (userDetails) => {
                 const { user } = response.data.data;
                 const authToken = response.headers['x-auth'];
                 dispatch(loginUser(user,authToken));
-                resolve(response.data.data.message)
+                console.log('message',response.data.message)
+                return resolve(response.data.message)
             })
             .catch((error)=> {
                 if(error.response){
                     console.log('response:', error.response)
-                    reject(error.response.data.message);
+                    return reject(error.response.data.message);
                 }
                 else {
-                    reject('Something unexpected went wrong');
+                    return reject('Something unexpected went wrong');
                 }
             })
         })
@@ -47,7 +48,8 @@ export const startRegister = (userDetails) => {
                 const { user } = response.data.data;
                 const authToken = response.headers['x-auth'];
                 dispatch(loginUser(user,authToken));
-                resolve(response.data.data.message)
+                console.log('message',response.data.message )
+                resolve(response.data.message)
             })
             .catch((error)=> {
                 if(error.response){
@@ -80,8 +82,8 @@ export const getUserProfile = (authToken) => {
                 resolve()
             })
             .catch((error)=> {
-               // Do nothing if request not successfull
-               resolve()
+               // Do nothing if request not successfull but reject promise
+               reject(error)
             })
         })
        

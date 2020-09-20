@@ -1,0 +1,44 @@
+.fab__button {
+    background-color: $pink;
+    color: white;
+    width: 73px;
+    position: fixed;
+    bottom: 7vh;
+    right: 7vw;
+    border-radius: 50%;
+    height: 73px;
+    font-size: 2rem;
+    z-index: 100;
+    box-shadow: 5px 0 3px -2px lighten(#c5c5c5, 13%) ;
+}
+
+.fab__button:hover {
+    background-color: darken($pink, 10%);
+}
+@media (min-width: 412px){
+    .fab__button {
+        width: 70px;
+        height: 70px;
+    }
+}
+@media (min-width: 480px){
+    .fab__button {
+        width: 70px;
+        height: 70px;
+    }
+}
+
+@media (min-width: 540px){
+    .fab__button {
+        width: 75px;
+        height: 75px;
+    }
+}
+
+@media (min-width: 768px){
+    .fab__button {
+        width: 75px ;
+        height: 75px;
+        right: 10vw;
+    }
+}

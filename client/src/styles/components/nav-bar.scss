@@ -18,7 +18,8 @@
     cursor: pointer;
     background-color: $pink;
     padding: 0.2rem 0.7rem;
-    letter-spacing: 0.07rem;
+    // letter-spacing: 0.07rem;
+    font-weight: 100;
 }
 
 .nav__item-button:hover {

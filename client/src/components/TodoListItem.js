@@ -1,7 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEdit,faTrashAlt} from "@fortawesome/free-regular-svg-icons";
-
+import { faEdit,faTrashAlt, faCheckCircle} from "@fortawesome/free-regular-svg-icons";
+import {faArrowDown} from "@fortawesome/free-solid-svg-icons";
 export default class TodoListItem extends React.Component {
     state = {
         open: true
@@ -29,15 +29,16 @@ export default class TodoListItem extends React.Component {
                e.persist()
               console.log('clicked', e);
            }} icon={faTrashAlt}></FontAwesomeIcon>
+           <FontAwesomeIcon color={ this.props.todo.isComplete? 'green' : 'red'} icon={faCheckCircle} />
             </div>
            
-            <p className="state">
-               completed
+            <p className="date">
+            25th, June 6:00pm
             </p>
             </div>
-            <p className="title" style={{'whiteSpace': this.state.open? 'nowrap' : 'normal'}}>{ this.props.title}</p>
-            <p className="description" style={{'whiteSpace': this.state.open? 'nowrap' : 'normal'}}>{this.props.description}</p>
-            <p className="date">25th, June 6:00pm</p>
+            <p className="title" style={{'whiteSpace': this.state.open? 'nowrap' : 'normal'}}>{ this.props.todo.title}</p>
+            <p className="description" style={{'whiteSpace': this.state.open? 'nowrap' : 'normal'}}>{this.props.todo.description}</p>
+            <p className="arrow"><FontAwesomeIcon icon={faArrowDown}/></p>
             </div>
         )
     }

@@ -67,7 +67,7 @@ const loginUser = async (req, res, next) => {
     }
     const token = await generateToken(user);
     res.set('x-auth', token);
-    return responseHandler(res, 200, 'Login successful', { user: _.omit(user.toJSON(), ['password']) });
+    return responseHandler(res, 200, 'Login successful', { user: _.omit(user, ['password']) });
   } catch (err) {
     console.log('error', err);
     return next(err);
