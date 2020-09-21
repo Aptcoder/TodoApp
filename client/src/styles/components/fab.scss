@@ -1,14 +1,14 @@
 .fab__button {
     background-color: $pink;
     color: white;
-    width: 73px;
+    width: 65px;
     position: fixed;
     bottom: 7vh;
     right: 7vw;
     border-radius: 50%;
-    height: 73px;
+    height: 65px;
     font-size: 2rem;
-    z-index: 100;
+    z-index: 1;
     box-shadow: 5px 0 3px -2px lighten(#c5c5c5, 13%) ;
 }
 
@@ -17,21 +17,21 @@
 }
 @media (min-width: 412px){
     .fab__button {
-        width: 70px;
-        height: 70px;
+        width: 67px;
+        height: 67px;
     }
 }
 @media (min-width: 480px){
     .fab__button {
-        width: 70px;
-        height: 70px;
+        width: 67px;
+        height: 67px;
     }
 }
 
 @media (min-width: 540px){
     .fab__button {
-        width: 75px;
-        height: 75px;
+        width: 73px;
+        height: 73px;
     }
 }
 

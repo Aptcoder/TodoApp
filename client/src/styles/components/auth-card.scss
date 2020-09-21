@@ -1,6 +1,10 @@
 .card {
-    margin: auto;
-    margin-top: 20vh;
+    // margin: auto;
+    // margin-top: 20vh;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
     width: 40vw;
     // height: 20vh;
     padding: $m-size $s-size;

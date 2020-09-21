@@ -1,7 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit,faTrashAlt, faCheckCircle} from "@fortawesome/free-regular-svg-icons";
-import {faArrowDown} from "@fortawesome/free-solid-svg-icons";
+import moment from 'moment';
 export default class TodoListItem extends React.Component {
     state = {
         open: true
@@ -33,12 +33,11 @@ export default class TodoListItem extends React.Component {
             </div>
            
             <p className="date">
-            25th, June 6:00pm
+            {moment(this.props.todo.todoAt).format('ddd. MMM Do YYYY, h:mm a')}
             </p>
             </div>
             <p className="title" style={{'whiteSpace': this.state.open? 'nowrap' : 'normal'}}>{ this.props.todo.title}</p>
             <p className="description" style={{'whiteSpace': this.state.open? 'nowrap' : 'normal'}}>{this.props.todo.description}</p>
-            <p className="arrow"><FontAwesomeIcon icon={faArrowDown}/></p>
             </div>
         )
     }

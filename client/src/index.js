@@ -11,6 +11,7 @@ import configureStore from './store/config';
 import {getUserProfile} from './actions/auth'
 import {startSetTodos} from './actions/todos'
 import gif from './loading2.gif'
+import "react-datetime/css/react-datetime.css";
 const store = configureStore();
 const jsx = (
   <Provider store={store}>

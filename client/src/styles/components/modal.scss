@@ -1,0 +1,62 @@
+.ReactModal__Content {
+    z-index: 1000000;
+    height: auto;
+}
+
+.ReactModal__Overlay {
+    z-index: 10000;
+}
+
+.todo-modal {
+    border: 1px solid #ccc ;
+    border-radius: 2px;
+    background-color: #fff ;
+    width: 90vw;
+    padding: $l-size $l-size;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    height: auto;
+}
+.ReactModalPortal>div {
+    opacity: 0;
+}
+
+.ReactModalPortal .ReactModal__Overlay {
+    transition: opacity 200ms ease-in-out;
+}
+
+.ReactModalPortal .ReactModal__Overlay--after-open {
+    opacity: 1;
+}
+
+.ReactModalPortal .ReactModal__Overlay--before-close {
+    opacity: 0;
+}
+.todo-modal:focus{
+    outline: none;
+}
+
+@media (min-width: 576px){
+    .todo-modal {
+        width: 70vw;
+    padding: $l-size $xl-size;
+    }
+}
+
+@media (min-width: 768px){
+    .todo-modal {
+    width: 50vw;
+    padding: $l-size $xl-size;
+    }
+}
+
+
+@media (min-width: 992px){
+    .todo-modal {
+    width: 35vw;
+    padding: $l-size $xl-size;
+    }
+}
