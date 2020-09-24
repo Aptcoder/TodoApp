@@ -4,7 +4,7 @@ import {faPlus} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {connect} from "react-redux";
 import TodoModal from './TodoModal';
-import {startAddTodo} from '../actions/todos'
+import {startAddTodo,startTodoEdit} from '../actions/todos'
 
 export class Dashboard extends React.Component {
     state = {
@@ -57,6 +57,7 @@ export class Dashboard extends React.Component {
             <div className="dashboard">
             <TodoModal 
             todo={this.state.currentTodo}
+
             onSubmit={ this.state.currentTodo? this.props.editSubmit : this.props.addSubmit }
             handleCloseTodoModal={this.handleCloseTodoModal} 
             isOpen={this.state.isTodoModalOpen}/>
@@ -73,7 +74,7 @@ export class Dashboard extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        editSubmit: () => console.log('edit submit'), 
+        editSubmit: async (todo, todoId) => await dispatch(startTodoEdit(todo,todoId)), 
         addSubmit: async (todo) => await dispatch(startAddTodo(todo))
     }
 }

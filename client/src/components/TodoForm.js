@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {Formik} from 'formik'
 import * as Yup from 'yup'
 import Datetime from "react-datetime";
 import moment from 'moment'
 const TodoForm = (props) => {
+
+    const [isLoading,setIsLoading] = useState(null)
+    const [formMessage, setFormMessage] = useState(null)
     return (
         <Formik
         initialValues={{
@@ -14,19 +17,32 @@ const TodoForm = (props) => {
         validationSchema={
             Yup.object({
                 title: Yup.string().required('Title is required'),
-                'date-time': Yup.object().required('Date and time is required')
+                'date-time': Yup.string().required('Date and time is required')
             })
         }
         onSubmit={(values) => {
+                setIsLoading(true)
                 console.log(values)
                 console.log(moment(values['date-time']).format());
-                props.onSubmit()
+                const id = props && props.todo? props.todo.id : null;
+                props.onSubmit(values, id)
+                .then((response) => {
+                    setFormMessage(response);
+                    setIsLoading(false)
+                    props.closeModal();
+                })
+                .catch((message) => {
+                    setFormMessage(message)
+                    setIsLoading(false)
+                })
                 // props.closeModal()
             }}
         >
         {
             formik => (
                 <form className="form" onSubmit={formik.handleSubmit}>
+                {formMessage ? (<p className='form__text-small' style={{color: 'blue'}}>{formMessage}</p>) :
+        null}
                 <label htmlFor="title">
                 Title
                 </label>
@@ -75,7 +91,7 @@ const TodoForm = (props) => {
                 />
                 {formik.touched['date-time'] && formik.errors['date-time'] ? (
                     <div className='error'>{formik.errors['date-time']}</div>) : null}
-                <button type="submit" className="form__button">Add todo</button>
+                <button type="submit" className="form__button">{isLoading? 'Loading...' : 'Add todo'}</button>
                 </form>
                 
             )

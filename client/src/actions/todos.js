@@ -15,6 +15,8 @@ export const removeTodo = (todoId) => {
 }
 
 export const editTodo = (todoId, todoUpdates) => {
+    console.log('id', todoId)
+    console.log('updates', todoUpdates);
     return {
         type: 'EDIT_TODO',
         todoId,
@@ -83,5 +85,40 @@ export const startAddTodo = (todo) => {
         })
         })
         
+    }
+}
+
+export const startTodoEdit = (todo,todoId) => {
+    return (dispatch, getState) => {
+        console.log('id from here', todoId)
+        const state = getState();
+        return new Promise((resolve, reject) => {
+            axios.put(`/api/user/todos/${todoId}`,
+        {
+            title: todo.title,
+            description: todo.description,
+            todoAt: todo['date-time'], 
+        }, 
+        {
+            headers: {
+                'x-auth': state.auth.authToken
+            }
+        })
+        .then((response) => {
+            // const {todo} = response.data.data;
+            // console.log('todo', todo);
+            dispatch(editTodo(todoId,todo));
+            resolve(response.data.message);
+        })
+        .catch((error) => {
+            console.log('error');
+            if(error.response){
+                reject(error.response.data.message)
+            }
+            else {
+                reject('Could not edit todo, try again later')
+            }
+        })
+        })
     }
 }
