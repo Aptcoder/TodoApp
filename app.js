@@ -18,12 +18,6 @@ if (env === 'development') {
 
 app.use(bodyParser.json());
 
-app.get('/', (req, res) => {
-  res.send({
-    message: 'Welcome!'
-  });
-});
-
 app.use('/api/users', userRouter);
 app.use('/api/user/todos', todoRouter);
 // error handling middleware
