@@ -30,14 +30,23 @@ app.use('/api/user/todos', todoRouter);
 app.use((err, req, res, next) => {
   handleError(res, err);
 });
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
 
-// 404 middleware
-app.use('*', (req, res) => {
-  const url = req.originalUrl;
-  res.status(404).send({
-    status: 'error',
-    message: `Oops. ${req.method} ${url} not found on this website`
+  const path = require('path');
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve('client', 'build', 'index.html'));
   });
+} else {
+  // 404 middleware
+  app.use('*', (req, res) => {
+    const url = req.originalUrl;
+    res.status(404).send({
+      status: 'error',
+      message: `Oops. ${req.method} ${url} not found on this website`
 });
+});
+}
+
 
 module.exports = app;
