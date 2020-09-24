@@ -2,13 +2,16 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit,faTrashAlt, faCheckCircle} from "@fortawesome/free-regular-svg-icons";
 import moment from 'moment';
+
 export default class TodoListItem extends React.Component {
     state = {
         open: true
     }
+    
     handleEditClick = (e) => {
         e.persist()
-        console.log('clicked', e);
+        console.log('clicked');
+        this.props.editItem(this.props.todo.id)
     }
 
     openOrCloseItem = (e) => {
@@ -19,6 +22,7 @@ export default class TodoListItem extends React.Component {
             }
         })
     }
+
     render(){
         return (
             <div onClick={this.openOrCloseItem} className="todoListItem">
@@ -31,7 +35,6 @@ export default class TodoListItem extends React.Component {
            }} icon={faTrashAlt}></FontAwesomeIcon>
            <FontAwesomeIcon color={ this.props.todo.isComplete? 'green' : 'red'} icon={faCheckCircle} />
             </div>
-           
             <p className="date">
             {moment(this.props.todo.todoAt).format('ddd. MMM Do YYYY, h:mm a')}
             </p>

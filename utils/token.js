@@ -8,7 +8,7 @@ const generateToken = function (user) {
   };
   return new Promise((resolve, reject) => {
     jwt.sign(payload, jwtSecret, {
-      expiresIn: '10h'
+      expiresIn: '3d'
     }, (err, token) => {
       if (err) {
         return reject(err);

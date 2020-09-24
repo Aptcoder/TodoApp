@@ -2,11 +2,14 @@ import React from 'react';
 import TodoList from './TodoList'
 import {faPlus} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {connect} from "react-redux";
 import TodoModal from './TodoModal';
+import {startAddTodo} from '../actions/todos'
 
-export default class Dashboard extends React.Component {
+export class Dashboard extends React.Component {
     state = {
-        isTodoModalOpen: false
+        isTodoModalOpen: false,
+        currentTodo: null
     }
     handleFabClick = this.handleFabClick.bind(this);
     handleCloseTodoModal = this.handleCloseTodoModal.bind(this)
@@ -20,8 +23,11 @@ export default class Dashboard extends React.Component {
     }
 
     handleFabClick(){
-        console.log('Mo de bi');
-        console.log(this)
+        this.setState(() => {
+            return {
+                currentTodo: null
+            }
+        })
         this.setState(() => {
             return {
                 isTodoModalOpen: true
@@ -29,11 +35,34 @@ export default class Dashboard extends React.Component {
         })
     }
 
+    handleEdit = (todo) => {
+        console.log('dash editing', todo)
+        this.setState(() => {
+            return {
+                currentTodo: todo
+            }
+        });
+        this.setState(() => {
+            return {
+                isTodoModalOpen: true
+            }
+        });
+    }
+
+    
+
     render(){
         return (
+
             <div className="dashboard">
-            <TodoModal handleCloseTodoModal={this.handleCloseTodoModal} isOpen={this.state.isTodoModalOpen}/>
-            <TodoList/>
+            <TodoModal 
+            todo={this.state.currentTodo}
+            onSubmit={ this.state.currentTodo? this.props.editSubmit : this.props.addSubmit }
+            handleCloseTodoModal={this.handleCloseTodoModal} 
+            isOpen={this.state.isTodoModalOpen}/>
+            <TodoList
+            handleEdit={this.handleEdit}
+            />
             <button onClick={this.handleFabClick} className="fab__button">
                    <FontAwesomeIcon size="1x" icon={faPlus}/>
             </button>
@@ -41,3 +70,13 @@ export default class Dashboard extends React.Component {
         )
     }
 }
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        editSubmit: () => console.log('edit submit'), 
+        addSubmit: async (todo) => await dispatch(startAddTodo(todo))
+    }
+}
+
+export default connect(null,mapDispatchToProps)(Dashboard)
+

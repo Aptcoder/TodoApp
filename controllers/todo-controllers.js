@@ -16,13 +16,13 @@ const createTodo = async (req, res, next) => {
     return next(new ErrorHandler(400, 'A valid todoAt date is required'));
   }
   try {
-    await Todo.create({
+    const todo = await Todo.create({
       title,
       description,
       userId,
       todoAt: new Date(todoAt)
     });
-    return responseHandler(res, 201, 'Todo created');
+    return responseHandler(res, 201, 'Todo created', { todo: todo.toJSON() });
   } catch (err) {
     return next(err);
   }

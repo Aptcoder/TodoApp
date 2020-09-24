@@ -11,7 +11,7 @@ const TodoModal = (props) => {
         onRequestClose={props.handleCloseTodoModal}
         className={"todo-modal"}
         >
-        <TodoForm closeModal={props.handleCloseTodoModal}/>
+        <TodoForm onSubmit={props.onSubmit} todo={props.todo} closeModal={props.handleCloseTodoModal}/>
         </Modal>
     )
 }

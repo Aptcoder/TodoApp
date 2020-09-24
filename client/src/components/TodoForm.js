@@ -7,9 +7,9 @@ const TodoForm = (props) => {
     return (
         <Formik
         initialValues={{
-            title: '',
-            description: '',
-            'date-time': ''
+            title: props.todo ? props.todo.title : '',
+            description: props.todo?  props.todo.description : '',
+            'date-time': props.todo? new Date(props.todo.todoAt) : ''
         }}
         validationSchema={
             Yup.object({
@@ -20,11 +20,9 @@ const TodoForm = (props) => {
         onSubmit={(values) => {
                 console.log(values)
                 console.log(moment(values['date-time']).format());
+                props.onSubmit()
                 // props.closeModal()
             }}
-        onChange={function (){
-            console.log(arguments);
-        }}
         >
         {
             formik => (
@@ -75,6 +73,8 @@ const TodoForm = (props) => {
                 }}
                 // initialValue={}
                 />
+                {formik.touched['date-time'] && formik.errors['date-time'] ? (
+                    <div className='error'>{formik.errors['date-time']}</div>) : null}
                 <button type="submit" className="form__button">Add todo</button>
                 </form>
                 
