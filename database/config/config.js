@@ -9,7 +9,7 @@ module.exports = {
     dialect: 'postgres',
   },
   production: {
-    url: process.env.DATABASE_URL,
+    url: process.env.HEROKU_POSTGRESQL_BRONZE_URL,
     dialect: 'postgres',
   },
 }
