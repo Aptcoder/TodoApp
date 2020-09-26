@@ -122,3 +122,29 @@ export const startTodoEdit = (todo,todoId) => {
         })
     }
 }
+
+
+export const startDeleteTodo = (todoId) => {
+    return (dispatch, getState) => {
+        const state = getState()
+        return new Promise((resolve, reject) => {
+            axios.delete(`/api/user/todos/${todoId}`, {
+                headers: {
+                    'x-auth': state.auth.authToken
+                }
+            })
+            .then((response) => {
+                dispatch(removeTodo(todoId));
+                resolve(response.data.message)
+            })
+            .catch((error) => {
+                if(error.response){
+                    reject(error.response.data.message)
+                }
+                else {
+                    reject('Could not edit todo, try again later')
+                }
+            })
+        })
+    }
+}

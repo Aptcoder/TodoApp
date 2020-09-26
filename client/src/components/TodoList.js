@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux'
 import TodoListItem from './TodoListItem';
 import ConfirmDeleteModal from './confirmDeleteModal'
+import {startDeleteTodo} from '../actions/todos'
 export class TodoList extends React.Component {
 
     state = {
@@ -44,6 +45,9 @@ export class TodoList extends React.Component {
                })
             }
             <ConfirmDeleteModal 
+            onDelete={this.props.startDeleteTodo}
+            todo={this.state.deleteModalTodo}
+            user={this.props.user}
             isOpen={this.state.deleteOpen}
             handleCloseModal={this.handleCloseDeleteModal}
             />
@@ -54,10 +58,15 @@ export class TodoList extends React.Component {
 }
 const mapStateToProps = (state) => {
     return {
-        todos: state.todos
+        todos: state.todos,
+        user: state.auth.user
     }
 }
 
+const mapDispatchToProps = (dispatch) => {
+    return {
+        startDeleteTodo: async (todoId) => dispatch(startDeleteTodo(todoId))
+    }
+}
 
-
-export default connect(mapStateToProps)(TodoList)
+export default connect(mapStateToProps, mapDispatchToProps)(TodoList)

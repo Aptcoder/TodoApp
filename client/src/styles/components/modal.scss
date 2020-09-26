@@ -60,3 +60,10 @@
     padding: $l-size $xl-size;
     }
 }
+
+.option-button {
+    @extend .nav__item-button;
+    margin-right: 1rem;
+    padding: 0.2rem 1rem;
+}
+
