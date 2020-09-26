@@ -14,17 +14,17 @@ module.exports = async (req, res, next) => {
 
   try {
     const decoded = await verifyToken(token);
-
+    console.log("decoded",decoded)
     if (!decoded) {
       throw new ErrorHandler(500, 'Something unexpected went wrong');
     }
 
-    const user = await User.findOne({ email: decoded.email });
+    const user = await User.findOne({ where: { email: decoded.email }  });
 
     if (!user) {
       throw new ErrorHandler(401, 'Not allowed. login first');
     }
-
+    console.log("user",user)
     req.user = user;
     return next();
   } catch (e) {

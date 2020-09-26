@@ -7,7 +7,9 @@ export default class TodoListItem extends React.Component {
     state = {
         open: true
     }
-    
+    handleDeleteClick = () => {
+        this.props.deleteItem(this.props.todo)
+    }
     handleEditClick = (e) => {
         e.persist()
         console.log('clicked');
@@ -29,10 +31,7 @@ export default class TodoListItem extends React.Component {
             <div className="todoListItem__top">
             <div className="action">
             <FontAwesomeIcon onClick={this.handleEditClick} icon={faEdit}></FontAwesomeIcon>
-            <FontAwesomeIcon onClick={(e) => {
-               e.persist()
-              console.log('clicked', e);
-           }} icon={faTrashAlt}></FontAwesomeIcon>
+            <FontAwesomeIcon onClick={this.handleDeleteClick} icon={faTrashAlt}></FontAwesomeIcon>
            <FontAwesomeIcon color={ this.props.todo.isComplete? 'green' : 'red'} icon={faCheckCircle} />
             </div>
             <p className="date">
