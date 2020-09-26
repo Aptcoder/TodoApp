@@ -9,4 +9,5 @@ router.get('/', auth, todoController.getAllUserTodos);
 router.post('/', auth, todoController.createTodo);
 router.put('/:id', auth, todoController.editSingleTodo);
 router.get('/:id', auth, todoController.getSingleUserTodo);
+router.get('/:id', auth, todoController.deleteSingleTodo)
 module.exports = router;

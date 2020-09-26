@@ -78,6 +78,23 @@ const editSingleTodo = async (req, res, next) => {
   }
 };
 
+const deleteSingleTodo = async (req, res, next) => {
+  const { id: todoId } = req.params;
+  const { id: userId } = req.user;
+  try {
+    await Todo.destroy({
+      where: {
+        id: todoId,
+        userId
+      }
+    });
+    return responseHandler(res, 200, 'Todo deleted');
+  }
+  catch(err){
+    return next(err);
+  }
+}
+
 module.exports = {
-  getAllUserTodos, createTodo, getSingleUserTodo, editSingleTodo
+  getAllUserTodos, createTodo, getSingleUserTodo, editSingleTodo,deleteSingleTodo 
 };
