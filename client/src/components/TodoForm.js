@@ -91,7 +91,7 @@ const TodoForm = (props) => {
                 />
                 {formik.touched['date-time'] && formik.errors['date-time'] ? (
                     <div className='error'>{formik.errors['date-time']}</div>) : null}
-                <button type="submit" className="form__button">{isLoading? 'Loading...' : 'Add todo'}</button>
+                <button type="submit" className="form__button">{isLoading? 'Loading...' : props.todo? 'Edit todo' : 'Add todo'}</button>
                 </form>
                 
             )
