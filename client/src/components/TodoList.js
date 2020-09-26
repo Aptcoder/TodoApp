@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux'
 import TodoListItem from './TodoListItem';
-import ConfirmDeleteModal from './ConfirmDeleteModal'
+import ConfirmDeleteModal from './confirmDeleteModal'
 import ConfirmCompleteModal from './ConfirmCompleteModal';
 import {startDeleteTodo, startCompleteTodo} from '../actions/todos';
 
