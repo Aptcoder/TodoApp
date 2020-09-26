@@ -33,7 +33,8 @@ const getAllUserTodos = async (req, res, next) => {
   const { id: userId } = req.user;
   console.log("userId", userId)
   try {
-    const todos = await Todo.findAll({ where: { userId } });
+    const todos = await Todo.findAll({ where: { userId },
+      order: [ ['createdAt', 'DESC']] });
     return responseHandler(res, 200, 'Users todos', { todos });
   } catch (err) {
     return next(err);

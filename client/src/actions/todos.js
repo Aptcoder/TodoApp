@@ -148,3 +148,33 @@ export const startDeleteTodo = (todoId) => {
         })
     }
 }
+
+export const startCompleteTodo = (todoId) => {
+    return (dispatch, getState) => {
+        const state = getState();
+        return new Promise((resolve, reject) => {
+            axios.put(`/api/user/todos/${todoId}`,
+        {
+            isCompleted: true
+        }, 
+        {
+            headers: {
+                'x-auth': state.auth.authToken
+            }
+        })
+        .then((response) => {
+            console.log('response', response)
+            dispatch(editTodo(todoId,{isCompleted: true}));
+            resolve(response.data.message);
+        })
+        .catch((error) => {
+            if(error.response){
+                reject(error.response.data.message)
+            }
+            else {
+                reject('Could not edit todo, try again later')
+            }
+        })
+        })
+    }
+}

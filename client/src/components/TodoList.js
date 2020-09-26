@@ -1,13 +1,17 @@
 import React from 'react';
 import {connect} from 'react-redux'
 import TodoListItem from './TodoListItem';
-import ConfirmDeleteModal from './confirmDeleteModal'
-import {startDeleteTodo} from '../actions/todos'
+import ConfirmDeleteModal from './ConfirmDeleteModal'
+import ConfirmCompleteModal from './ConfirmCompleteModal';
+import {startDeleteTodo, startCompleteTodo} from '../actions/todos';
+
 export class TodoList extends React.Component {
 
     state = {
         deleteOpen: false,
-        deleteModalTodo: null
+        deleteModalTodo: null,
+        completeOpen: false,
+        completeModalTodo: null
     }
     handleEdit = (todoId) => {
         const todo = this.props.todos.find((todo)=> {
@@ -24,7 +28,17 @@ export class TodoList extends React.Component {
         this.setState(() => ({deleteOpen: true}))
     }
 
-
+    handleOpenCompleteModal = (todo) => {
+        this.setState(() => ({completeModalTodo: todo}))
+        this.setState(() => ({completeOpen: true}))
+    }
+    handleCloseCompleteModal = () => {
+        this.setState(() => {
+            return {
+                completeOpen: false
+            }
+        })
+    }
     handleCloseDeleteModal = () => {
         this.setState(() => {
             return {
@@ -40,6 +54,7 @@ export class TodoList extends React.Component {
                    return <TodoListItem 
                    editItem={this.handleEdit} 
                    deleteItem={this.handleOpenDeleteModal}
+                   completeItem={this.handleOpenCompleteModal}
                    key={todo.id} todo={todo}
                    />
                })
@@ -51,7 +66,13 @@ export class TodoList extends React.Component {
             isOpen={this.state.deleteOpen}
             handleCloseModal={this.handleCloseDeleteModal}
             />
-        
+            
+            <ConfirmCompleteModal
+            onComplete={this.props.startCompleteTodo}
+            isOpen={this.state.completeOpen}
+            handleCloseModal={this.handleCloseCompleteModal}
+            todo={this.state.completeModalTodo}
+            />
             </div>
         )
     }
@@ -65,6 +86,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        startCompleteTodo: async (todoId) => dispatch(startCompleteTodo(todoId)),
         startDeleteTodo: async (todoId) => dispatch(startDeleteTodo(todoId))
     }
 }
