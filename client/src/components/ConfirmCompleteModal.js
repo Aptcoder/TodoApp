@@ -4,13 +4,14 @@ import React from 'react'
 const ConfirmCompleteModal = (props) => {
     
     const onYesClick = () => {
-        props.onComplete(props.todo.id)
+        const currentVal = props.todo.isCompleted;
+        props.onComplete(props.todo.id, currentVal)
         .then((response) => {
-            console.log(response)
+    
             props.handleCloseModal()
         })
         .catch((error) => {
-            console.log(error)
+            // TODO - DO something here
         })
     }
     return (
@@ -22,7 +23,7 @@ const ConfirmCompleteModal = (props) => {
         className={"todo-modal"}
         >
         <div>
-        <p>Hey there, are you sure you'll like to mark task with title <strong>{props.todo ? props.todo.title : ''}</strong> as completed </p>
+        <p>Hey there, are you sure you'll like to {props.todo? props.todo.isCompleted? 'unmark': 'mark' : null} task with title <strong>{props.todo ? props.todo.title : ''}</strong> as completed </p>
         <button className="option-button" onClick={onYesClick}>Yes</button> <button onClick={props.handleCloseModal} className="option-button" >No</button>
         </div>
         </Modal>

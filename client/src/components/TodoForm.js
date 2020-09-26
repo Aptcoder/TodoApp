@@ -43,6 +43,29 @@ const TodoForm = (props) => {
                 <form className="form" onSubmit={formik.handleSubmit}>
                 {formMessage ? (<p className='form__text-small' style={{color: 'blue'}}>{formMessage}</p>) :
         null}
+        <label 
+        htmlFor="date-time" 
+        >
+        Todo Before
+        </label>
+        <Datetime
+        input={true}
+        inputProps={{
+            className: 'form__input',
+            type: "text" ,
+            id:'date-time',
+            name:'date-time',
+            readOnly: true
+        } }
+        value={formik.values["date-time"]}
+        onChange={(date) => {
+            formik.setFieldValue('date-time',date);
+        }}
+        // initialValue={}
+        />
+        {formik.touched['date-time'] && formik.errors['date-time'] ? (
+            <div className='error'>{formik.errors['date-time']}</div>) : null}
+            <p className='tiny-info'>A reminder will be sent to your mail if this task is not marked as completed before provided time</p>
                 <label htmlFor="title">
                 Title
                 </label>
@@ -70,27 +93,7 @@ const TodoForm = (props) => {
                 value={formik.values.description}
                 >
                 </textarea>
-                <label 
-                htmlFor="date-time" 
-                >
-                Date-time
-                </label>
-                <Datetime
-                input={true}
-                inputProps={{
-                    className: 'form__input',
-                    type: "text" ,
-                    id:'date-time',
-                    name:'date-time'
-                } }
-                value={formik.values["date-time"]}
-                onChange={(date) => {
-                    formik.setFieldValue('date-time',date);
-                }}
-                // initialValue={}
-                />
-                {formik.touched['date-time'] && formik.errors['date-time'] ? (
-                    <div className='error'>{formik.errors['date-time']}</div>) : null}
+              
                 <button type="submit" className="form__button">{isLoading? 'Loading...' : props.todo? 'Edit todo' : 'Add todo'}</button>
                 </form>
                 

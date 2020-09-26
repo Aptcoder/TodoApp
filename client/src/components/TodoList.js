@@ -86,7 +86,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        startCompleteTodo: async (todoId) => dispatch(startCompleteTodo(todoId)),
+        startCompleteTodo: async (todoId, current) => dispatch(startCompleteTodo(todoId, current)),
         startDeleteTodo: async (todoId) => dispatch(startDeleteTodo(todoId))
     }
 }

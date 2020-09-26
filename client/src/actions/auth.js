@@ -1,7 +1,6 @@
 import axios from 'axios';
 export const loginUser = (user,authToken) => {
     localStorage.setItem('token', authToken);
-    console.log('Dispatched')
     return {
         type: 'LOGIN_USER',
         user,
@@ -20,12 +19,10 @@ export const startLogin = (userDetails) => {
                 const { user } = response.data.data;
                 const authToken = response.headers['x-auth'];
                 dispatch(loginUser(user,authToken));
-                console.log('message',response.data.message)
                 return resolve(response.data.message)
             })
             .catch((error)=> {
                 if(error.response){
-                    console.log('response:', error.response)
                     return reject(error.response.data.message);
                 }
                 else {
@@ -48,7 +45,6 @@ export const startRegister = (userDetails) => {
                 const { user } = response.data.data;
                 const authToken = response.headers['x-auth'];
                 dispatch(loginUser(user,authToken));
-                console.log('message',response.data.message )
                 resolve(response.data.message)
             })
             .catch((error)=> {
@@ -57,7 +53,7 @@ export const startRegister = (userDetails) => {
                       reject('Email address already registered. Please Login');
                     }
                     else {
-                        console.log('response:', error.response)
+
                         reject(error.response.data.message);
                     }
                 }
@@ -76,7 +72,7 @@ export const getUserProfile = (authToken) => {
                 headers: { 'x-auth': authToken}
             })
             .then((response) => {
-                console.log('user response:', response);
+    
                 const { user } = response.data.data;
                 dispatch(loginUser(user,authToken));
                 resolve()

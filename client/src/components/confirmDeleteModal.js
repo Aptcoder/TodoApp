@@ -1,5 +1,4 @@
 import Modal from 'react-modal';
-import TodoForm from './TodoForm';
 import React from 'react'
 
 const ConfirmDeleteModal = (props) => {
@@ -7,11 +6,10 @@ const ConfirmDeleteModal = (props) => {
     const onYesClick = () => {
         props.onDelete(props.todo.id)
         .then((response) => {
-            console.log(response)
             props.handleCloseModal()
         })
         .catch((error) => {
-            console.log(error)
+            // TODO - Put something 
         })
     }
     return (

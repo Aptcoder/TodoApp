@@ -15,8 +15,6 @@ export const removeTodo = (todoId) => {
 }
 
 export const editTodo = (todoId, todoUpdates) => {
-    console.log('id', todoId)
-    console.log('updates', todoUpdates);
     return {
         type: 'EDIT_TODO',
         todoId,
@@ -41,7 +39,6 @@ export const startSetTodos = (token) => {
             })
             .then((response) => {
                 const {todos} = response.data.data
-                console.log('todos',todos);
                 dispatch(setTodos(todos))
                 resolve()
             })
@@ -70,12 +67,10 @@ export const startAddTodo = (todo) => {
         })
         .then((response) => {
             const {todo} = response.data.data;
-            console.log('todo', todo);
             dispatch(addTodo(todo));
             resolve(response.data.message);
         })
         .catch((error) => {
-            console.log('error');
             if(error.response){
                 reject(error.response.data.message)
             }
@@ -90,7 +85,6 @@ export const startAddTodo = (todo) => {
 
 export const startTodoEdit = (todo,todoId) => {
     return (dispatch, getState) => {
-        console.log('id from here', todoId)
         const state = getState();
         return new Promise((resolve, reject) => {
             axios.put(`/api/user/todos/${todoId}`,
@@ -111,7 +105,6 @@ export const startTodoEdit = (todo,todoId) => {
             resolve(response.data.message);
         })
         .catch((error) => {
-            console.log('error');
             if(error.response){
                 reject(error.response.data.message)
             }
@@ -149,13 +142,13 @@ export const startDeleteTodo = (todoId) => {
     }
 }
 
-export const startCompleteTodo = (todoId) => {
+export const startCompleteTodo = (todoId, current) => {
     return (dispatch, getState) => {
         const state = getState();
         return new Promise((resolve, reject) => {
             axios.put(`/api/user/todos/${todoId}`,
         {
-            isCompleted: true
+            isCompleted: !current
         }, 
         {
             headers: {
@@ -163,8 +156,7 @@ export const startCompleteTodo = (todoId) => {
             }
         })
         .then((response) => {
-            console.log('response', response)
-            dispatch(editTodo(todoId,{isCompleted: true}));
+            dispatch(editTodo(todoId,{isCompleted: !current}));
             resolve(response.data.message);
         })
         .catch((error) => {
