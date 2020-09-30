@@ -7,7 +7,7 @@ const { handleError } = require('./utils/error');
 // route imports
 const userRouter = require('./routes/user-routes');
 const todoRouter = require('./routes/todo-routes');
-
+const sendMail = require('./utils/mail')
 const app = express();
 
 const env = process.env.NODE_ENV || 'development';
@@ -21,9 +21,21 @@ app.use(bodyParser.json());
 app.use('/api/users', userRouter);
 app.use('/api/user/todos', todoRouter);
 // error handling middleware
-app.use((err, req, res, next) => {
-  handleError(res, err);
-});
+
+app.use('/api/sendmail', async (req, res) => {
+  try {
+    const sent = await sendMail();
+    if(sent){
+      res.send({
+        message: 'mail sent'
+      })
+    }
+  }catch(e){
+    console.log('error',e);
+  }
+})
+
+
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
 
@@ -42,5 +54,8 @@ if (process.env.NODE_ENV === 'production') {
 });
 }
 
+app.use((err, req, res, next) => {
+  handleError(res, err);
+});
 
 module.exports = app;
