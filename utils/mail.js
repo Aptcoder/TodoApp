@@ -36,7 +36,7 @@ class MailFactory {
                     button: {
                         color: '#DC4D2F',
                         text: 'mark as completed',
-                        link: 'https://mern-stack-todo.herokuapp.com'
+                        link: 'https://mern-todo-server.herokuapp.com'
                     }
                 },
                 outro: 'Need help? contact the developers'

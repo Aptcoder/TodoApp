@@ -101,7 +101,11 @@ export const startTodoEdit = (todo,todoId) => {
         .then((response) => {
             // const {todo} = response.data.data;
             // console.log('todo', todo);
-            dispatch(editTodo(todoId,todo));
+            dispatch(editTodo(todoId,{
+                title: todo.title,
+                description: todo.description,
+                todoAt: todo['date-time'], 
+            }));
             resolve(response.data.message);
         })
         .catch((error) => {
